@@ -2,7 +2,11 @@ all:
 	@echo "please enter a subcommand"
 api:
 	@cd flask-ppl-api/ && python3 main.py
+react: run
+	@
+frontend: run
+	@
 run:
-	@npm start
+	@cd peopledb/ && npm start
 build:
-	@echo "todo: learn how to build..."
+	@cd peopledb/ && npm run build

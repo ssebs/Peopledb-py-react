@@ -1,0 +1,10 @@
+// style.scss - Styling for PeopleDB
+$primaryColor: #41afff;
+$secondaryColor: #dadada;
+
+$primaryTxtColor: #121212;
+$secondaryTxtColor: $secondaryColor;
+
+.header {
+    color: $primaryTxtColor;
+}
