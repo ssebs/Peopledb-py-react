@@ -60,20 +60,37 @@ class PersonDetail extends Component {
 
     updatePerson(event) {
         event.preventDefault();
-        console.log(this.state.person.firstName);
+        if (window.confirm("Are you sure you want to submit?")) {
+            console.log(this.state.person);
+            this.setState({
+                showUpdated: true
+            })
+        }
     }
 
     render(){
+        let updatedHtml;
+        if (this.state.showUpdated) {
+            updatedHtml = (
+                <p>Updated!</p>
+            );
+        }
+
+
         return (
             <div>
                 <h2>{this.state.person.firstName}'s Info:</h2>
-
+                <h5>Your updates won't get submitted until you hit "Submit" below.</h5>
+                <hr/>
                 <form onSubmit={this.updatePerson.bind(this)}>
                     <label>First: <input type="text" name="first" onChange={this.handleInputChange.bind(this)} defaultValue={this.state.person.firstName} /> </label><br></br>
                     <label>Last: <input type="text" name="last" onChange={this.handleInputChange.bind(this)} defaultValue={this.state.person.lastName} /> </label><br></br>
                     <label>Email: <input type="text" name="email" onChange={this.handleInputChange.bind(this)} defaultValue={this.state.person.email} /> </label><br></br>
                     <button>Submit</button>
                 </form>
+                <div>
+                    {updatedHtml}
+                </div>
             </div>
         );
     }
