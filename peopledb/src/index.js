@@ -1,14 +1,27 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import './style.scss'
 import Header from './components/Header';
 import Footer from './components/Footer';
-import './style.scss'
+import PersonDetail from './components/PersonDetail';
+import PersonSearch from './components/PersonSearch';
 
-const About = () => <h2>About</h2>;
-const Contact = () => <h2>Contact</h2>;
-const Home = () => <h1>Home!</h1>;
+const About = () => {
+    return <h2>About</h2>;
+};
+const Contact = () => {
+    return <h2>Contact</h2>;
+};
+const Home = () => {
+    return (
+        <div>
+            <h2>Home!</h2>
+            <PersonSearch />
+        </div>
+    );
+};
 
 class App extends Component {
 
@@ -16,7 +29,8 @@ class App extends Component {
         super(props);
 
         this.state = {
-            title: 'PeopleDB'
+            title: 'PeopleDB',
+
         };
 
     }
@@ -26,10 +40,10 @@ class App extends Component {
         <Router>
         <div>
             <Header title={this.state.title} />
-            <p>Main body here</p>
             <Route exact path="/" component={Home}/>
             <Route path="/contact" component={Contact}/>
             <Route path="/about" component={About}/>
+            <Route path='/detail/:id' component={PersonDetail} />
             <Footer />
         </div>
         </Router>
