@@ -26,18 +26,17 @@ class PersonDetail extends Component {
 
 
     getSampleRESTPerson = (id) => {
-        // GET https://reqres.in/api/users/2
-        fetch("https://reqres.in/api/users/" + id )
+        fetch("http://localhost:5000/people/" + id )
         .then((resp) => resp.json())
         .then((data)=>{
-            // console.log(data.data)
+            // console.log(data);
             this.setState( {
                 person: {
 
                     id: this.props.match.params.id,
-                    firstName: data.data.first_name,
-                    lastName: data.data.last_name,
-                    email: "rest@test.data"
+                    firstName: data[0].first,
+                    lastName: data[0].last,
+                    email:  data[0].email
                 }
             });
         })
