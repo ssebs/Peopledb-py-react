@@ -9,7 +9,7 @@ class PersonSearch extends Component {
             <div>
                 <h3>Person Search</h3>
                 <blockquote>Todo: Make this a live search style form</blockquote>
-                <p>Sample person: <Link to='/detail/-1'>Here</Link></p>
+                <p>Sample person 2: <Link to='/detail/2'>Here</Link></p>
             </div>
         );
     }

@@ -25,10 +25,28 @@ class PersonDetail extends Component {
     }
 
 
-    componentDidMount() {
-        this.setState({
-            person: this.getSamplePerson(this.props.match.params.id)
+    getSampleRESTPerson = (id) => {
+        // GET https://reqres.in/api/users/2
+        fetch("https://reqres.in/api/users/" + id )
+        .then((resp) => resp.json())
+        .then((data)=>{
+            // console.log(data.data)
+            this.setState( {
+                person: {
+
+                    id: this.props.match.params.id,
+                    firstName: data.data.first_name,
+                    lastName: data.data.last_name,
+                    email: "rest@test.data"
+                }
+            });
         })
+        .catch((e) => console.log(e));
+    }
+
+
+    componentDidMount() {
+        this.getSampleRESTPerson(this.props.match.params.id);
     }
 
     handleInputChange(event) {
