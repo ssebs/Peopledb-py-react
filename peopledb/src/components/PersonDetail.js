@@ -25,14 +25,14 @@ class PersonDetail extends Component {
     }
 
 
-    getSampleRESTPerson = (id) => {
+    getRESTPerson = (id) => {
+        // GET a person based on id
         fetch("http://localhost:5000/people/" + id )
         .then((resp) => resp.json())
         .then((data)=>{
             // console.log(data);
             this.setState( {
                 person: {
-
                     id: this.props.match.params.id,
                     firstName: data[0].first,
                     lastName: data[0].last,
@@ -43,9 +43,20 @@ class PersonDetail extends Component {
         .catch((e) => console.log(e));
     }
 
+    updateRESTPerson = (personObj) => {
+        // PATCH a person
+        /*
+{
+  "id":3, 
+  "first":"Janie",
+  "last":"Doh",
+  "email":"jdoe45@example.com"
+}
+        */
+    }
 
     componentDidMount() {
-        this.getSampleRESTPerson(this.props.match.params.id);
+        this.getRESTPerson(this.props.match.params.id);
     }
 
     handleInputChange(event) {
