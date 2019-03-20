@@ -17,6 +17,9 @@ class Header extends Component {
                     <li style={headerStyle}>
                         <Link to="/contact">Contact</Link>
                     </li>
+                    <li style={headerStyle}>
+                        <Link to="/create">Create a new Person</Link>
+                    </li>
                 </ul>
                 <hr/>
             </div>

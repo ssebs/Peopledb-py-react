@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PersonDetail from "./components/PersonDetail";
 import PersonSearch from "./components/PersonSearch";
+import PersonCreate from "./components/PersonCreate";
 
 const About = () => {
     return <h2>About</h2>;
@@ -52,6 +53,7 @@ class App extends Component {
                     <Route path='/contact' component={Contact} />
                     <Route path='/about' component={About} />
                     <Route path='/detail/:id' component={PersonDetail} />
+                    <Route path='/create/' component={PersonCreate} />
                     <Footer />
                 </div>
             </Router>
