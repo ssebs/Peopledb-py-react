@@ -1,59 +1,74 @@
-import React, {Component} from 'react';
+import React, { Component } from "react";
+import axios from "axios";
 
 class PersonDetail extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-          person: {}  
+            person: {}
         };
-        console.log(this.props.match.params.id);
+        // console.log(this.props.match.params.id);
     }
 
-    getSamplePerson = (id) => {
-        if (id == -1){
+    getSamplePerson = id => {
+        if (+id === -1) {
             return {
                 id: -1,
-                firstName: 'SampleFirst',
-                lastName: 'SampleLast',
-                email: 'Sample@Email.com'
-            }
+                firstName: "SampleFirst",
+                lastName: "SampleLast",
+                email: "Sample@Email.com"
+            };
         } else {
-            return {status: "Error"}
+            return { status: "Error" };
         }
-        
-    }
+    };
 
-
-    getRESTPerson = (id) => {
+    getRESTPerson = id => {
         // GET a person based on id
-        fetch("http://localhost:5000/people/" + id )
-        .then((resp) => resp.json())
-        .then((data)=>{
-            // console.log(data);
-            this.setState( {
-                person: {
-                    id: this.props.match.params.id,
-                    firstName: data[0].first,
-                    lastName: data[0].last,
-                    email:  data[0].email
-                }
-            });
-        })
-        .catch((e) => console.log(e));
-    }
+        const url = "http://localhost:5000/people/" + id;
+        axios
+            .get(url)
+            .then(resp => {
+                const { first, last, email } = resp.data[0];
 
-    updateRESTPerson = (personObj) => {
+                this.setState({
+                    person: {
+                        id,
+                        firstName: first,
+                        lastName: last,
+                        email
+                    }
+                });
+            })
+            .catch(e => {
+                console.log(e);
+            });
+    };
+
+    updateRESTPerson = () => {
         // PATCH a person
-        /*
-{
-  "id":3, 
-  "first":"Janie",
-  "last":"Doh",
-  "email":"jdoe45@example.com"
-}
-        */
-    }
+        const url = "http://localhost:5000/people/update";
+
+        const { id, firstName, lastName, email } = this.state.person;
+        const personToSend = {
+            id: +id,
+            first: firstName,
+            last: lastName,
+            email: email
+        };
+        // console.log(this.state.person);
+        // console.log(personToSend);
+
+        axios.patch(url, personToSend, {
+        }).then((response)  => {
+                console.log(response.data)
+            },
+            function(error) {
+                console.log(error.message); //=> String
+            }
+        );
+    };
 
     componentDidMount() {
         this.getRESTPerson(this.props.match.params.id);
@@ -63,19 +78,21 @@ class PersonDetail extends Component {
         let f = this.state.person.firstName;
         let l = this.state.person.lastName;
         let e = this.state.person.email;
+
         switch (event.target.name) {
-            case 'first':
+            case "first":
                 f = event.target.value;
                 break;
-            case 'last':
+            case "last":
                 l = event.target.value;
-                break
-            case 'email':
+                break;
+            case "email":
                 e = event.target.value;
-                break
+                break;
+            default:
+                break;
         }
 
-        
         this.setState({
             person: {
                 id: this.state.person.id,
@@ -89,36 +106,62 @@ class PersonDetail extends Component {
     updatePerson(event) {
         event.preventDefault();
         if (window.confirm("Are you sure you want to submit?")) {
-            console.log(this.state.person);
+            // console.log(this.state.person);
             this.setState({
                 showUpdated: true
-            })
+            });
+            this.updateRESTPerson();
         }
     }
 
-    render(){
+    render() {
         let updatedHtml;
         if (this.state.showUpdated) {
-            updatedHtml = (
-                <p>Updated!</p>
-            );
+            updatedHtml = <p>Updated!</p>;
         }
-
 
         return (
             <div>
                 <h2>{this.state.person.firstName}'s Info:</h2>
-                <h5>Your updates won't get submitted until you hit "Submit" below.</h5>
-                <hr/>
+                <h5>
+                    Your updates won't get submitted until you hit "Submit"
+                    below.
+                </h5>
+                <hr />
                 <form onSubmit={this.updatePerson.bind(this)}>
-                    <label>First: <input type="text" name="first" onChange={this.handleInputChange.bind(this)} defaultValue={this.state.person.firstName} /> </label><br></br>
-                    <label>Last: <input type="text" name="last" onChange={this.handleInputChange.bind(this)} defaultValue={this.state.person.lastName} /> </label><br></br>
-                    <label>Email: <input type="text" name="email" onChange={this.handleInputChange.bind(this)} defaultValue={this.state.person.email} /> </label><br></br>
+                    <label>
+                        First:{" "}
+                        <input
+                            type='text'
+                            name='first'
+                            onChange={this.handleInputChange.bind(this)}
+                            defaultValue={this.state.person.firstName}
+                        />{" "}
+                    </label>
+                    <br />
+                    <label>
+                        Last:{" "}
+                        <input
+                            type='text'
+                            name='last'
+                            onChange={this.handleInputChange.bind(this)}
+                            defaultValue={this.state.person.lastName}
+                        />{" "}
+                    </label>
+                    <br />
+                    <label>
+                        Email:{" "}
+                        <input
+                            type='text'
+                            name='email'
+                            onChange={this.handleInputChange.bind(this)}
+                            defaultValue={this.state.person.email}
+                        />{" "}
+                    </label>
+                    <br />
                     <button>Submit</button>
                 </form>
-                <div>
-                    {updatedHtml}
-                </div>
+                <div>{updatedHtml}</div>
             </div>
         );
     }
