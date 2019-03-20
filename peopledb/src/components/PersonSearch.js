@@ -2,13 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-/**
- * Idea for structure:
- * - Search box
- *  - GET search
- *  - list results with clickable link
- */
-
+// Display Search Results in unordered list
 export function SearchResults(props) {
     // Check if there are any search results
     if (props.ppl.length === 0) {
@@ -17,20 +11,43 @@ export function SearchResults(props) {
 
     let pplElements = props.ppl.map(person => {
         return (
-            <li key={person.id}>
-                <Link to={"/detail/" + person.id}>{person.id}</Link>{" "}
-                {person.first} {person.last} {person.email}
-            </li>
+            <tr key={person.id}>
+                <td>
+                    <Link to={"/detail/" + person.id} style={{
+                        backgroundColor: "#ccc",
+                        padding: "5px",
+                        marginBottom: "5px",
+                        color: "#000",
+                        textDecoration: "none"
+                    }}>
+                    {person.id}
+                    </Link>
+                </td>
+                <td> {person.first}</td>
+                <td> {person.last}</td>
+                <td>{person.email}</td>
+            </tr>
         );
     });
 
     return (
         <div>
-            <ul>{pplElements}</ul>
+            <table>
+                <thead>
+                    <tr >
+                        <th>ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                    </tr>
+                </thead>
+                <tbody>{pplElements}</tbody>
+            </table>
         </div>
     );
 }
 
+// Search People component
 class PersonSearch extends Component {
     constructor(props) {
         super(props);
@@ -46,7 +63,7 @@ class PersonSearch extends Component {
         axios
             .get(url)
             .then(resp => {
-                console.log(resp.data);
+                // console.log(resp.data);
                 this.setState({
                     searchResults: [...resp.data]
                 });
@@ -56,23 +73,22 @@ class PersonSearch extends Component {
 
     handleChange = evt => {
         let qry = evt.target.value;
-        if (qry.replace(/^\s+|\s+$/g, '').length === 0) {
+        if (qry.replace(/^\s+|\s+$/g, "").length === 0) {
             this.setState({
                 searchResults: []
             });
             return;
         }
 
-        qry = qry.replace("*", '%');
-        
+        qry = qry.replace("*", "%");
+
         this.setState({
             searchQuery: qry
         });
-        
+
         setTimeout(() => {
             this.getRESTPeople();
         }, 50);
-        
     };
 
     handleSubmit = evt => {
@@ -83,14 +99,7 @@ class PersonSearch extends Component {
     render() {
         return (
             <div>
-                <h3>Person Search</h3>
-                <blockquote>
-                    Todo: Make this a live search style form
-                </blockquote>
-                <p>
-                    Sample person 2: <Link to='/detail/2'>Here</Link>
-                </p>
-                <br />
+                <h3>Search for People below</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label
                         htmlFor='qry'
@@ -98,7 +107,12 @@ class PersonSearch extends Component {
                     >
                         Search:{" "}
                     </label>
-                    <input type='text' id='qry' onChange={this.handleChange} autoComplete="off" />{" "}
+                    <input
+                        type='text'
+                        id='qry'
+                        onChange={this.handleChange}
+                        autoComplete='off'
+                    />{" "}
                     <button type='submit'>Submit</button>
                 </form>
                 <SearchResults ppl={this.state.searchResults} />
