@@ -5,19 +5,30 @@ export class PersonCreate extends Component {
         super(props);
 
         this.state = {
-            firstName: "",
-            lastName: "",
+            first: "",
+            last: "",
             email: ""
         };
     }
 
-    handleChange = evt => {};
+    handleChange = evt => {
+        this.setState({
+            [evt.target.name]: evt.target.value
+        });
+    };
 
     handleSubmit = evt => {
         evt.preventDefault();
+        if (this.state.email.indexOf("@") === -1) {
+            window.alert("Please enter a valid email");
+            return;
+        }
+
         if (!window.confirm("Are you sure you want to submit?")) {
             return;
         }
+
+
         console.log(this.state);
     };
 
@@ -42,10 +53,10 @@ export class PersonCreate extends Component {
                     <input
                         type='text'
                         name='first'
-                        id='first'
                         onChange={this.handleChange}
                         style={{ marginBottom: "10px" }}
                         autoComplete='new-password'
+                        required
                     />
                     <br />
 
@@ -58,10 +69,10 @@ export class PersonCreate extends Component {
                     <input
                         type='text'
                         name='last'
-                        id='last'
                         onChange={this.handleChange}
                         style={{ marginBottom: "10px" }}
                         autoComplete='new-password'
+                        required
                     />
                     <br />
 
@@ -74,9 +85,9 @@ export class PersonCreate extends Component {
                     <input
                         type='text'
                         name='email'
-                        id='email'
                         onChange={this.handleChange}
                         style={{ marginBottom: "10px" }}
+                        required
                     />
 
                     <br />
