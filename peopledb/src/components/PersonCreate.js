@@ -33,6 +33,7 @@ export class PersonCreate extends Component {
     };
 
     createPerson = () => {
+        // TODO: Add baseurl prop to index.js
         const url = "http://localhost:5000/people/create";
 
         const { first, last, email } = this.state;

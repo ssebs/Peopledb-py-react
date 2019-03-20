@@ -39,6 +39,7 @@ class App extends Component {
     constructor(props) {
         super(props);
 
+        // TODO: Add baseurl prop for api calls
         this.state = {
             title: "PeopleDB"
         };
