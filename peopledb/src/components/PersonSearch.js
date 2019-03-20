@@ -55,9 +55,24 @@ class PersonSearch extends Component {
     };
 
     handleChange = evt => {
+        let qry = evt.target.value;
+        if (qry.replace(/^\s+|\s+$/g, '').length === 0) {
+            this.setState({
+                searchResults: []
+            });
+            return;
+        }
+
+        qry = qry.replace("*", '%');
+        
         this.setState({
-            searchQuery: evt.target.value
+            searchQuery: qry
         });
+        
+        setTimeout(() => {
+            this.getRESTPeople();
+        }, 50);
+        
     };
 
     handleSubmit = evt => {
@@ -83,7 +98,7 @@ class PersonSearch extends Component {
                     >
                         Search:{" "}
                     </label>
-                    <input type='text' id='qry' onChange={this.handleChange} />{" "}
+                    <input type='text' id='qry' onChange={this.handleChange} autoComplete="off" />{" "}
                     <button type='submit'>Submit</button>
                 </form>
                 <SearchResults ppl={this.state.searchResults} />
