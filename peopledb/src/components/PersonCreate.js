@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 export class PersonCreate extends Component {
     constructor(props) {
@@ -28,8 +29,28 @@ export class PersonCreate extends Component {
             return;
         }
 
+        this.createPerson();
+    };
 
-        console.log(this.state);
+    createPerson = () => {
+        const url = "http://localhost:5000/people/create";
+
+        const { first, last, email } = this.state;
+
+        const personToSend = {
+            first,
+            last,
+            email
+        };
+
+        axios
+            .post(url, personToSend)
+            .then(r => {
+                console.log(r)
+                const newID = r.data['id']
+                window.location = "/detail/" + newID;
+            })
+            .catch(e => console.log(e));
     };
 
     render() {
