@@ -60,9 +60,9 @@ class PersonDetail extends Component {
         // console.log(this.state.person);
         // console.log(personToSend);
 
-        axios.patch(url, personToSend, {
-        }).then((response)  => {
-                console.log(response.data)
+        axios.patch(url, personToSend, {}).then(
+            response => {
+                console.log(response.data);
             },
             function(error) {
                 console.log(error.message); //=> String
@@ -129,37 +129,53 @@ class PersonDetail extends Component {
                 </h5>
                 <hr />
                 <form onSubmit={this.updatePerson.bind(this)}>
-                    <label>
+                    <label
+                        htmlFor='first'
+                        style={{ display: "block", fontWeight: "bold" }}
+                    >
                         First:{" "}
-                        <input
-                            type='text'
-                            name='first'
-                            onChange={this.handleInputChange.bind(this)}
-                            defaultValue={this.state.person.firstName}
-                        />{" "}
                     </label>
+                    <input
+                        type='text'
+                        name='first'
+                        onChange={this.handleInputChange.bind(this)}
+                        style={{ marginBottom: "10px" }}
+                        defaultValue={this.state.person.firstName}
+                    />{" "}
                     <br />
-                    <label>
+                    <label
+                        htmlFor='last'
+                        style={{ display: "block", fontWeight: "bold" }}
+                    >
                         Last:{" "}
+                        </label>
                         <input
                             type='text'
                             name='last'
                             onChange={this.handleInputChange.bind(this)}
+                            style={{ marginBottom: "10px" }}
                             defaultValue={this.state.person.lastName}
                         />{" "}
-                    </label>
                     <br />
-                    <label>
+                    <label
+                        htmlFor='email'
+                        style={{ display: "block", fontWeight: "bold" }}
+                    >
                         Email:{" "}
+                        </label>
                         <input
                             type='text'
                             name='email'
                             onChange={this.handleInputChange.bind(this)}
+                            style={{ marginBottom: "10px" }}
                             defaultValue={this.state.person.email}
                         />{" "}
-                    </label>
+                    
                     <br />
                     <button>Submit</button>
+                    <blockquote>
+                        Todo: Add delete button
+                    </blockquote>
                 </form>
                 <div>{updatedHtml}</div>
             </div>
