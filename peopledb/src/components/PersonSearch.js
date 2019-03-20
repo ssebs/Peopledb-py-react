@@ -9,6 +9,28 @@ import axios from "axios";
  *  - list results with clickable link
  */
 
+export function SearchResults(props) {
+    // Check if there are any search results
+    if (props.ppl.length === 0) {
+        return <div />;
+    }
+
+    let pplElements = props.ppl.map(person => {
+        return (
+            <li key={person.id}>
+                <Link to={"/detail/" + person.id}>{person.id}</Link>{" "}
+                {person.first} {person.last} {person.email}
+            </li>
+        );
+    });
+
+    return (
+        <div>
+            <ul>{pplElements}</ul>
+        </div>
+    );
+}
+
 class PersonSearch extends Component {
     constructor(props) {
         super(props);
@@ -26,7 +48,7 @@ class PersonSearch extends Component {
             .then(resp => {
                 console.log(resp.data);
                 this.setState({
-                    searchResults: { ...resp.data }
+                    searchResults: [...resp.data]
                 });
             })
             .catch(e => console.log(e));
@@ -40,7 +62,6 @@ class PersonSearch extends Component {
 
     handleSubmit = evt => {
         evt.preventDefault();
-        console.log(this.state.searchQuery);
         this.getRESTPeople();
     };
 
@@ -56,14 +77,16 @@ class PersonSearch extends Component {
                 </p>
                 <br />
                 <form onSubmit={this.handleSubmit}>
-                    <label for='qry' style={{display: "block", fontWeight: "bold"}}>Search: </label>
-                    <input
-                        type='text'
-                        id='qry'
-                        onChange={this.handleChange}
-                    />{" "}
+                    <label
+                        htmlFor='qry'
+                        style={{ display: "block", fontWeight: "bold" }}
+                    >
+                        Search:{" "}
+                    </label>
+                    <input type='text' id='qry' onChange={this.handleChange} />{" "}
                     <button type='submit'>Submit</button>
                 </form>
+                <SearchResults ppl={this.state.searchResults} />
             </div>
         );
     }
