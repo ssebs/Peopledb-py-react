@@ -31,7 +31,7 @@ Person Database using python, flask, sqlite3, react.
     - ^ Will run npm start live dev server (:3000)
 
 ## Building
-- tbd
+- `$ make build`
 
 ## Screenshots
 
