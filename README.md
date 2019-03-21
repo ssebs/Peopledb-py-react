@@ -31,7 +31,10 @@ Person Database using python, flask, sqlite3, react.
     - ^ Will run npm start live dev server (:3000)
 
 ## Building
-- `$ make build`
+- Frontend:
+    - `$ make build`
+- Backend: (TEMP)
+    - `$ nohup /usr/bin/python3 /var/www/PeopleDB-py-react/flask-ppl-api-main.py &`
 
 ## Screenshots
 
