@@ -13,13 +13,7 @@ export function SearchResults(props) {
         return (
             <tr key={person.id}>
                 <td>
-                    <Link to={"/detail/" + person.id} style={{
-                        backgroundColor: "#ccc",
-                        padding: "5px",
-                        marginBottom: "5px",
-                        color: "#000",
-                        textDecoration: "none"
-                    }}>
+                    <Link to={"/detail/" + person.id} className="id-button">
                         {person.id}
                     </Link>
                 </td>
@@ -117,6 +111,7 @@ class PersonSearch extends Component {
                     />{" "}
                     <button type='submit'>Submit</button>
                 </form>
+                <br />
                 <SearchResults ppl={this.state.searchResults} />
             </div>
         );

@@ -73,7 +73,6 @@ export class PersonCreate extends Component {
                 <form onSubmit={this.handleSubmit} autoComplete='new-password'>
                     <label
                         htmlFor='first'
-                        style={{ display: "block", fontWeight: "bold" }}
                     >
                         First Name:
                     </label>
@@ -81,7 +80,6 @@ export class PersonCreate extends Component {
                         type='text'
                         name='first'
                         onChange={this.handleChange}
-                        style={{ marginBottom: "10px" }}
                         autoComplete='new-password'
                         required
                     />
@@ -89,7 +87,6 @@ export class PersonCreate extends Component {
 
                     <label
                         htmlFor='last'
-                        style={{ display: "block", fontWeight: "bold" }}
                     >
                         Last Name:
                     </label>
@@ -97,7 +94,6 @@ export class PersonCreate extends Component {
                         type='text'
                         name='last'
                         onChange={this.handleChange}
-                        style={{ marginBottom: "10px" }}
                         autoComplete='new-password'
                         required
                     />
@@ -105,7 +101,6 @@ export class PersonCreate extends Component {
 
                     <label
                         htmlFor='email'
-                        style={{ display: "block", fontWeight: "bold" }}
                     >
                         Email:
                     </label>
@@ -113,7 +108,6 @@ export class PersonCreate extends Component {
                         type='text'
                         name='email'
                         onChange={this.handleChange}
-                        style={{ marginBottom: "10px" }}
                         required
                     />
 

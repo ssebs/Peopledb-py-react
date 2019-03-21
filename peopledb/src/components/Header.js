@@ -4,32 +4,24 @@ import {Link} from 'react-router-dom';
 class Header extends Component {
     render() {
         return (
-            <div>
-                <hr/>
-                
+            <div className="header material-shadow">
                 <ul>
-                    <li style={headerStyle}>
+                    <li className="title">
                         <Link to="/">{this.props.title}</Link>
                     </li>
-                    <li style={headerStyle}>
+                    <li>
                         <Link to="/about">About</Link>
                     </li>
-                    <li style={headerStyle}>
+                    <li>
                         <Link to="/contact">Contact</Link>
                     </li>
-                    <li style={headerStyle}>
+                    <li>
                         <Link to="/create">Create a new Person</Link>
                     </li>
                 </ul>
-                <hr/>
             </div>
         );
     }
 }
-
-const headerStyle = {
-    display: 'inline',
-    padding: '0px 5px'
-};
 
 export default Header;

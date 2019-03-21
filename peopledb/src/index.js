@@ -50,19 +50,22 @@ class App extends Component {
             <Router>
                 <div>
                     <Header title={this.state.title} />
-                    <Route path='/contact' component={Contact} />
-                    <Route path='/about' component={About} />
-                    <Route exact path='/'
-                        render={(props) => <Home {...props} baseRESTUrl={this.state.baseRESTUrl} />}
-                    />
-                    <Route
-                        path='/detail/:id'
-                        render={(props) => <PersonDetail {...props} baseRESTUrl={this.state.baseRESTUrl} />}
-                    />
-                    <Route
-                        path='/create/'
-                        render={(props) => <PersonCreate {...props} baseRESTUrl={this.state.baseRESTUrl} />}
-                    />
+                    <div className="container">
+                        <Route path='/contact' component={Contact} />
+                        <Route path='/about' component={About} />
+                        <Route exact path='/'
+                            render={(props) => <Home {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                        />
+                        <Route
+                            path='/detail/:id'
+                            render={(props) => <PersonDetail {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                        />
+                        <Route
+                            path='/create/'
+                            render={(props) => <PersonCreate {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                        />
+                    </div>
+                    <br />
                     <Footer />
                 </div>
             </Router>

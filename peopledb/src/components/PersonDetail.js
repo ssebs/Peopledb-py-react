@@ -145,7 +145,6 @@ class PersonDetail extends Component {
                     <form onSubmit={this.updatePerson}>
                         <label
                             htmlFor='first'
-                            style={{ display: "block", fontWeight: "bold" }}
                         >
                             First:{" "}
                         </label>
@@ -153,13 +152,11 @@ class PersonDetail extends Component {
                             type='text'
                             name='first'
                             onChange={this.handleInputChange}
-                            style={{ marginBottom: "10px" }}
                             defaultValue={this.state.person.firstName}
                         />{" "}
                         <br />
                         <label
                             htmlFor='last'
-                            style={{ display: "block", fontWeight: "bold" }}
                         >
                             Last:{" "}
                         </label>
@@ -167,13 +164,11 @@ class PersonDetail extends Component {
                             type='text'
                             name='last'
                             onChange={this.handleInputChange}
-                            style={{ marginBottom: "10px" }}
                             defaultValue={this.state.person.lastName}
                         />{" "}
                         <br />
                         <label
                             htmlFor='email'
-                            style={{ display: "block", fontWeight: "bold" }}
                         >
                             Email:{" "}
                         </label>
@@ -181,17 +176,17 @@ class PersonDetail extends Component {
                             type='text'
                             name='email'
                             onChange={this.handleInputChange}
-                            style={{ marginBottom: "10px" }}
                             defaultValue={this.state.person.email}
                         />{" "}
 
                         <br />
-                        <button type="submit">Submit</button>
+                        <button type="submit">Submit Changes</button>
                     </form>
                 </div>
-                <div style={{ marginTop: "25px" }}>
+                <hr style={{ margin: "10px 0px" }} />
+                <div>
                     <form onSubmit={this.deletePerson}>
-                        <button type="submit" style={{ backgroundColor: "#c11", color: "#fff" }}>Delete User</button>
+                        <button type="submit" className="delete-button">Delete User</button>
                     </form>
                 </div>
                 <div style={{ clear: "both" }}>

@@ -3,10 +3,8 @@ import React, { Component } from 'react';
 class Footer extends Component {
     render() {
         return (
-            <div>
-                <hr/>
+            <div className="footer">
                 Footer
-                <hr/>
             </div>
         );
     }
