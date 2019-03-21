@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-// Display Search Results in unordered list
+// Display Search Results in table body
 export function SearchResults(props) {
     // Check if there are any search results
     if (props.ppl.length === 0) {
@@ -20,7 +20,7 @@ export function SearchResults(props) {
                         color: "#000",
                         textDecoration: "none"
                     }}>
-                    {person.id}
+                        {person.id}
                     </Link>
                 </td>
                 <td> {person.first}</td>
@@ -51,6 +51,7 @@ export function SearchResults(props) {
 class PersonSearch extends Component {
     constructor(props) {
         super(props);
+        // this.props.baseRESTUrl should be the REST url to access
 
         this.state = {
             searchQuery: "",
@@ -59,7 +60,7 @@ class PersonSearch extends Component {
     }
 
     getRESTPeople = () => {
-        const url = "http://localhost:5000/people/" + this.state.searchQuery;
+        const url = this.props.baseRESTUrl + "/people/" + this.state.searchQuery;
         axios
             .get(url)
             .then(resp => {
@@ -112,6 +113,7 @@ class PersonSearch extends Component {
                         id='qry'
                         onChange={this.handleChange}
                         autoComplete='off'
+                        autoFocus
                     />{" "}
                     <button type='submit'>Submit</button>
                 </form>

@@ -4,6 +4,7 @@ import axios from "axios";
 class PersonDetail extends Component {
     constructor(props) {
         super(props);
+        // this.props.baseRESTUrl should be the REST url to access
 
         this.state = {
             person: {}
@@ -26,7 +27,7 @@ class PersonDetail extends Component {
 
     getRESTPerson = id => {
         // GET a person based on id
-        const url = "http://localhost:5000/people/" + id;
+        const url = this.props.baseRESTUrl + "/people/" + id;
         axios
             .get(url)
             .then(resp => {
@@ -48,7 +49,7 @@ class PersonDetail extends Component {
 
     updateRESTPerson = () => {
         // PATCH a person
-        const url = "http://localhost:5000/people/update";
+        const url = this.props.baseRESTUrl + "/people/update";
 
         const { id, firstName, lastName, email } = this.state.person;
         const personToSend = {

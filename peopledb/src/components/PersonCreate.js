@@ -4,12 +4,14 @@ import axios from "axios";
 export class PersonCreate extends Component {
     constructor(props) {
         super(props);
+        // this.props.baseRESTUrl should be the REST url to access
 
         this.state = {
             first: "",
             last: "",
             email: ""
         };
+        // console.log(this.props);
     }
 
     handleChange = evt => {
@@ -34,7 +36,7 @@ export class PersonCreate extends Component {
 
     createPerson = () => {
         // TODO: Add baseurl prop to index.js
-        const url = "http://localhost:5000/people/create";
+        const url = this.props.baseRESTUrl + "/people/create";
 
         const { first, last, email } = this.state;
 
@@ -62,6 +64,10 @@ export class PersonCreate extends Component {
                     Just fill out this form and you'll be on your way in
                     creating a new person in the DB.
                 </p>
+
+                <blockquote>
+                baseRESTUrl = {this.props.baseRESTUrl}
+                </blockquote>
 
                 <hr />
 

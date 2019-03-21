@@ -15,7 +15,7 @@ const About = () => {
 const Contact = () => {
     return <h2>Contact</h2>;
 };
-const Home = () => {
+const Home = (props) => {
     return (
         <div>
             <h2>Home</h2>
@@ -30,7 +30,7 @@ const Home = () => {
                 tristique commodo nunc vulputate, consectetur efficitur est.
                 Donec ultrices imperdiet urna quis rhoncus.
             </p>
-            <PersonSearch />
+            <PersonSearch baseRESTUrl={props.baseRESTUrl} />
         </div>
     );
 };
@@ -39,9 +39,9 @@ class App extends Component {
     constructor(props) {
         super(props);
 
-        // TODO: Add baseurl prop for api calls
         this.state = {
-            title: "PeopleDB"
+            title: "PeopleDB",
+            baseRESTUrl: "http://localhost:5000"
         };
     }
 
@@ -50,11 +50,19 @@ class App extends Component {
             <Router>
                 <div>
                     <Header title={this.state.title} />
-                    <Route exact path='/' component={Home} />
                     <Route path='/contact' component={Contact} />
                     <Route path='/about' component={About} />
-                    <Route path='/detail/:id' component={PersonDetail} />
-                    <Route path='/create/' component={PersonCreate} />
+                    <Route exact path='/'
+                        render={(props) => <Home {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                    />
+                    <Route
+                        path='/detail/:id'
+                        render={(props) => <PersonDetail {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                    />
+                    <Route
+                        path='/create/'
+                        render={(props) => <PersonCreate {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                    />
                     <Footer />
                 </div>
             </Router>
