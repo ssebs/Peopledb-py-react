@@ -35,7 +35,6 @@ export class PersonCreate extends Component {
     };
 
     createPerson = () => {
-        // TODO: Add baseurl prop to index.js
         const url = this.props.baseRESTUrl + "/people/create";
 
         const { first, last, email } = this.state;
@@ -49,7 +48,7 @@ export class PersonCreate extends Component {
         axios
             .post(url, personToSend)
             .then(r => {
-                console.log(r)
+                // console.log(r)
                 const newID = r.data['id']
                 window.location = "/detail/" + newID;
             })
@@ -66,7 +65,7 @@ export class PersonCreate extends Component {
                 </p>
 
                 <blockquote>
-                baseRESTUrl = {this.props.baseRESTUrl}
+                    baseRESTUrl = {this.props.baseRESTUrl}
                 </blockquote>
 
                 <hr />

@@ -12,26 +12,13 @@ class PersonDetail extends Component {
         // console.log(this.props.match.params.id);
     }
 
-    getSamplePerson = id => {
-        if (+id === -1) {
-            return {
-                id: -1,
-                firstName: "SampleFirst",
-                lastName: "SampleLast",
-                email: "Sample@Email.com"
-            };
-        } else {
-            return { status: "Error" };
-        }
-    };
-
     getRESTPerson = id => {
         // GET a person based on id
         const url = this.props.baseRESTUrl + "/people/" + id;
         axios
             .get(url)
             .then(resp => {
-                const { first, last, email } = resp.data[0];
+                const { first, last, email } = resp.data;
 
                 this.setState({
                     person: {
@@ -61,21 +48,33 @@ class PersonDetail extends Component {
         // console.log(this.state.person);
         // console.log(personToSend);
 
-        axios.patch(url, personToSend, {}).then(
-            response => {
-                console.log(response.data);
-            },
-            function(error) {
+        axios.patch(url, personToSend)
+            .then(response => {
+                // console.log(response.data);
+            }).catch(error => {
                 console.log(error.message); //=> String
             }
-        );
+            );
     };
+
+    deleteRESTPerson = () => {
+        const url = this.props.baseRESTUrl + "/people/delete";
+        const idObj = {
+            id: this.state.person.id
+        }
+
+        axios.delete(url, { data: idObj })
+            .then(response => console.log(response.data))
+            .catch(error => console.log(error.message));
+
+        window.location = "/";
+    }
 
     componentDidMount() {
         this.getRESTPerson(this.props.match.params.id);
     }
 
-    handleInputChange(event) {
+    handleInputChange = (event) => {
         let f = this.state.person.firstName;
         let l = this.state.person.lastName;
         let e = this.state.person.email;
@@ -104,7 +103,7 @@ class PersonDetail extends Component {
         });
     }
 
-    updatePerson(event) {
+    updatePerson = (event) => {
         event.preventDefault();
         if (window.confirm("Are you sure you want to submit?")) {
             // console.log(this.state.person);
@@ -115,6 +114,18 @@ class PersonDetail extends Component {
         }
     }
 
+    deletePerson = (event) => {
+        event.preventDefault();
+
+        if (!window.confirm("Are you sure you want to delete " + this.state.person.firstName + "?"))
+            return;
+        if (!window.confirm("Are you REALLY sure?"))
+            return;
+
+        // console.log("Deleting " + this.state.person.firstName);
+        this.deleteRESTPerson();
+    }
+
     render() {
         let updatedHtml;
         if (this.state.showUpdated) {
@@ -123,62 +134,69 @@ class PersonDetail extends Component {
 
         return (
             <div>
-                <h2>{this.state.person.firstName}'s Info:</h2>
+                <h2>ID: {this.state.person.id} ({this.state.person.firstName}'s) Info:</h2>
+
                 <h5>
                     Your updates won't get submitted until you hit "Submit"
                     below.
                 </h5>
                 <hr />
-                <form onSubmit={this.updatePerson.bind(this)}>
-                    <label
-                        htmlFor='first'
-                        style={{ display: "block", fontWeight: "bold" }}
-                    >
-                        First:{" "}
-                    </label>
-                    <input
-                        type='text'
-                        name='first'
-                        onChange={this.handleInputChange.bind(this)}
-                        style={{ marginBottom: "10px" }}
-                        defaultValue={this.state.person.firstName}
-                    />{" "}
-                    <br />
-                    <label
-                        htmlFor='last'
-                        style={{ display: "block", fontWeight: "bold" }}
-                    >
-                        Last:{" "}
+                <div>
+                    <form onSubmit={this.updatePerson}>
+                        <label
+                            htmlFor='first'
+                            style={{ display: "block", fontWeight: "bold" }}
+                        >
+                            First:{" "}
+                        </label>
+                        <input
+                            type='text'
+                            name='first'
+                            onChange={this.handleInputChange}
+                            style={{ marginBottom: "10px" }}
+                            defaultValue={this.state.person.firstName}
+                        />{" "}
+                        <br />
+                        <label
+                            htmlFor='last'
+                            style={{ display: "block", fontWeight: "bold" }}
+                        >
+                            Last:{" "}
                         </label>
                         <input
                             type='text'
                             name='last'
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={this.handleInputChange}
                             style={{ marginBottom: "10px" }}
                             defaultValue={this.state.person.lastName}
                         />{" "}
-                    <br />
-                    <label
-                        htmlFor='email'
-                        style={{ display: "block", fontWeight: "bold" }}
-                    >
-                        Email:{" "}
+                        <br />
+                        <label
+                            htmlFor='email'
+                            style={{ display: "block", fontWeight: "bold" }}
+                        >
+                            Email:{" "}
                         </label>
                         <input
                             type='text'
                             name='email'
-                            onChange={this.handleInputChange.bind(this)}
+                            onChange={this.handleInputChange}
                             style={{ marginBottom: "10px" }}
                             defaultValue={this.state.person.email}
                         />{" "}
-                    
-                    <br />
-                    <button>Submit</button>
-                    <blockquote>
-                        Todo: Add delete button
-                    </blockquote>
-                </form>
-                <div>{updatedHtml}</div>
+
+                        <br />
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+                <div style={{ marginTop: "25px" }}>
+                    <form onSubmit={this.deletePerson}>
+                        <button type="submit" style={{ backgroundColor: "#c11", color: "#fff" }}>Delete User</button>
+                    </form>
+                </div>
+                <div style={{ clear: "both" }}>
+                    {updatedHtml}
+                </div>
             </div>
         );
     }
