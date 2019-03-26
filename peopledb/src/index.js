@@ -41,8 +41,8 @@ class App extends Component {
 
         this.state = {
             title: "PeopleDB",
-            baseRESTUrl: "http://localhost:5000"
-            // baseRESTUrl: "http://api.ssebs.com"
+            //baseRESTUrl: "http://localhost:5000"
+            baseRESTUrl: "http://api.ssebs.com"
         };
     }
 

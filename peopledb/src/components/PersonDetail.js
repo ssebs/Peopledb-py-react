@@ -64,10 +64,11 @@ class PersonDetail extends Component {
         }
 
         axios.delete(url, { data: idObj })
-            .then(response => console.log(response.data))
+            .then(response => {
+                console.log(response.data);
+                window.location = "/";
+            })
             .catch(error => console.log(error.message));
-
-        window.location = "/";
     }
 
     componentDidMount() {
