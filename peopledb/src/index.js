@@ -13,28 +13,27 @@ import { Container } from "react-bootstrap";
 import "./style.scss";
 
 const About = () => {
-    return <h2>About</h2>;
+    return <h2 className="text-center">About</h2>;
 };
 const Contact = () => {
-    return <h2>Contact</h2>;
+    return <h2 className="text-center">Contact</h2>;
 };
 const Home = props => {
     return (
-        <div>
+        <Container className="text-center">
             <h2>Home</h2>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
-                ut nisl velit. Donec sed tempus urna. Duis a rhoncus odio. Nunc
-                lacus dui, dictum id mattis mattis, luctus non tellus. Nulla non
-                metus eget mi placerat consequat. Nulla ut vestibulum augue,
-                eget fringilla neque. Ut vehicula arcu diam, nec porta mauris
-                vulputate at. Nam et metus ornare, pretium magna eu, facilisis
-                dui. Etiam molestie sagittis nibh a aliquet. Vivamus mi massa,
-                tristique commodo nunc vulputate, consectetur efficitur est.
-                Donec ultrices imperdiet urna quis rhoncus.
+                This is a page where you can search for existing users, and
+                modify them if they exist. If you hit the "Submit" button with
+                no query, it will return all the results.
+            </p>
+
+            <p>
+                Click on a result to go to their page, and click on "Create a
+                new Person" at the top to create someone new.
             </p>
             <PersonSearch baseRESTUrl={props.baseRESTUrl} />
-        </div>
+        </Container>
     );
 };
 

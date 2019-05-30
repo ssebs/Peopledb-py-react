@@ -1,6 +1,8 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
+
+import { Table, FormControl, Button, InputGroup } from "react-bootstrap";
 
 // Display Search Results in table body
 export function SearchResults(props) {
@@ -9,35 +11,32 @@ export function SearchResults(props) {
         return <div />;
     }
 
-    let pplElements = props.ppl.map(person => {
+    const pplElements = props.ppl.map(person => {
         return (
-            <tr key={person.id}>
-                <td>
-                    <Link to={"/detail/" + person.id} className="id-button">
-                        {person.id}
-                    </Link>
-                </td>
-                <td> {person.first}</td>
-                <td> {person.last}</td>
+            <tr
+                key={person.id}
+                onClick={() => props.history.push(`/detail/${person.id}`)}
+            >
+                <td>{person.id}</td>
+                <td>{person.first}</td>
+                <td>{person.last}</td>
                 <td>{person.email}</td>
             </tr>
         );
     });
 
     return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>First Name</th>
-                        <th>Last Name</th>
-                        <th>Email</th>
-                    </tr>
-                </thead>
-                <tbody>{pplElements}</tbody>
-            </table>
-        </div>
+        <Table hover responsive>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>{pplElements}</tbody>
+        </Table>
     );
 }
 
@@ -67,8 +66,8 @@ class PersonSearch extends Component {
             .catch(e => console.log(e));
     };
 
-    handleChange = evt => {
-        let qry = evt.target.value;
+    handleChange = e => {
+        let qry = e.target.value;
         if (qry.replace(/^\s+|\s+$/g, "").length === 0) {
             this.setState({
                 searchResults: []
@@ -87,8 +86,8 @@ class PersonSearch extends Component {
         }, 50);
     };
 
-    handleSubmit = evt => {
-        evt.preventDefault();
+    handleSubmit = e => {
+        e.preventDefault();
         this.getRESTPeople();
     };
 
@@ -96,26 +95,24 @@ class PersonSearch extends Component {
         return (
             <div>
                 <h3>Search for People below</h3>
-                <form onSubmit={this.handleSubmit}>
-                    <label
-                        htmlFor="qry"
-                        style={{ display: "block", fontWeight: "bold" }}
-                    >
-                        Search:{" "}
-                    </label>
-                    <input
+                <InputGroup>
+                    <FormControl
                         type="text"
                         id="qry"
                         onChange={this.handleChange}
                         autoComplete="off"
                         autoFocus
-                    />{" "}
-                    <button type="submit">Submit</button>
-                </form>
+                    />
+                    <InputGroup.Append>
+                        <Button type="button" onClick={this.handleSubmit}>
+                            Submit
+                        </Button>
+                    </InputGroup.Append>
+                </InputGroup>
                 <br />
-                <SearchResults ppl={this.state.searchResults} />
+                <SearchResults ppl={this.state.searchResults} history={this.props.history} />
             </div>
         );
     }
 }
-export default PersonSearch;
+export default withRouter(PersonSearch);
