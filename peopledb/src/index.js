@@ -1,13 +1,16 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route } from "react-router-dom";
+import { BrowserRouter, Route } from "react-router-dom";
 
-import "./style.scss";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import PersonDetail from "./components/PersonDetail";
 import PersonSearch from "./components/PersonSearch";
 import PersonCreate from "./components/PersonCreate";
+
+import { Container } from "react-bootstrap";
+
+import "./style.scss";
 
 const About = () => {
     return <h2>About</h2>;
@@ -15,7 +18,7 @@ const About = () => {
 const Contact = () => {
     return <h2>Contact</h2>;
 };
-const Home = (props) => {
+const Home = props => {
     return (
         <div>
             <h2>Home</h2>
@@ -48,28 +51,46 @@ class App extends Component {
 
     render() {
         return (
-            <Router>
+            <BrowserRouter>
                 <div>
                     <Header title={this.state.title} />
-                    <div className="container">
-                        <Route path='/contact' component={Contact} />
-                        <Route path='/about' component={About} />
-                        <Route exact path='/'
-                            render={(props) => <Home {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                    <Container>
+                        <Route path="/contact" component={Contact} />
+                        <Route path="/about" component={About} />
+                        <Route
+                            exact
+                            path="/"
+                            render={props => (
+                                <Home
+                                    {...props}
+                                    baseRESTUrl={this.state.baseRESTUrl}
+                                />
+                            )}
                         />
                         <Route
-                            path='/detail/:id'
-                            render={(props) => <PersonDetail {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                            path="/detail/:id"
+                            render={props => (
+                                <PersonDetail
+                                    {...props}
+                                    baseRESTUrl={this.state.baseRESTUrl}
+                                />
+                            )}
                         />
                         <Route
-                            path='/create/'
-                            render={(props) => <PersonCreate {...props} baseRESTUrl={this.state.baseRESTUrl} />}
+                            path="/create/"
+                            render={props => (
+                                <PersonCreate
+                                    {...props}
+                                    baseRESTUrl={this.state.baseRESTUrl}
+                                />
+                            )}
                         />
-                    </div>
+                    </Container>
+
                     <br />
                     <Footer />
                 </div>
-            </Router>
+            </BrowserRouter>
         );
     }
 }

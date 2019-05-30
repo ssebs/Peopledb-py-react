@@ -28,7 +28,7 @@ export function SearchResults(props) {
         <div>
             <table>
                 <thead>
-                    <tr >
+                    <tr>
                         <th>ID</th>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -54,7 +54,8 @@ class PersonSearch extends Component {
     }
 
     getRESTPeople = () => {
-        const url = this.props.baseRESTUrl + "/people/" + this.state.searchQuery;
+        const url =
+            this.props.baseRESTUrl + "/people/" + this.state.searchQuery;
         axios
             .get(url)
             .then(resp => {
@@ -97,19 +98,19 @@ class PersonSearch extends Component {
                 <h3>Search for People below</h3>
                 <form onSubmit={this.handleSubmit}>
                     <label
-                        htmlFor='qry'
+                        htmlFor="qry"
                         style={{ display: "block", fontWeight: "bold" }}
                     >
                         Search:{" "}
                     </label>
                     <input
-                        type='text'
-                        id='qry'
+                        type="text"
+                        id="qry"
                         onChange={this.handleChange}
-                        autoComplete='off'
+                        autoComplete="off"
                         autoFocus
                     />{" "}
-                    <button type='submit'>Submit</button>
+                    <button type="submit">Submit</button>
                 </form>
                 <br />
                 <SearchResults ppl={this.state.searchResults} />

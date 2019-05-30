@@ -1,90 +1,94 @@
-// style.scss - Styling for PeopleDB
-$primaryColor: #41afff;
-$secondaryColor: #dadada;
+$primary: #41afff;
 
-$primaryTxtColor: #121212;
-$secondaryTxtColor: $secondaryColor;
-$tertiaryTxtColor: #ffffff;
+@import "../node_modules/bootstrap/scss/bootstrap.scss"
 
-* {
-    font-family: Arial, Helvetica, sans-serif;
-}
-#root, body {
-    margin: 0px;
-}
+// // style.scss - Styling for PeopleDB
+// $primaryColor: #41afff;
+// $secondaryColor: #dadada;
 
-.header {
-    color: $primaryTxtColor;
-    background-color: $primaryColor;
-    padding: 15px;
-    a {
-        color: $tertiaryTxtColor;
-        font-size: 1.15em;
-    }
-    li {
-        display: inline;
-        padding: 0px 5px;
-    }
-}
-.title {
-    font-weight: bold;
-    font-size: 1.25em;
-    margin-right: 20px;
-    a {
-        text-decoration: none;
-    }
-}
-.footer {
+// $primaryTxtColor: #121212;
+// $secondaryTxtColor: $secondaryColor;
+// $tertiaryTxtColor: #ffffff;
+
+// * {
+//     font-family: Arial, Helvetica, sans-serif;
+// }
+// #root, body {
+//     margin: 0px;
+// }
+
+// .header {
+//     color: $primaryTxtColor;
+//     background-color: $primaryColor;
+//     padding: 15px;
+//     a {
+//         color: $tertiaryTxtColor;
+//         font-size: 1.15em;
+//     }
+//     li {
+//         display: inline;
+//         padding: 0px 5px;
+//     }
+// }
+// .title {
+//     font-weight: bold;
+//     font-size: 1.25em;
+//     margin-right: 20px;
+//     a {
+//         text-decoration: none;
+//     }
+// }
+// .footer {
     
-    color: $tertiaryTxtColor;
-    background-color: $primaryColor;
-    padding: 15px;
-    text-align: center;
-}
-.container {
-    max-width: 768px;
-    width: 75%;
-    margin: auto;
-    padding: 2px 15px;
-}
-.material-shadow {
-    border-radius: 2px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
-}
-.id-button {
-    background-color: $primaryColor;
-    padding: 5px;
-    margin-bottom: 5px;
-    color: $tertiaryTxtColor;
-    text-decoration: none;
-    font-weight: bold;
-}
-.delete-button {
-    background-color: #cc1111;
-}
+//     color: $tertiaryTxtColor;
+//     background-color: $primaryColor;
+//     padding: 15px;
+//     text-align: center;
+// }
+// .container {
+//     max-width: 768px;
+//     width: 75%;
+//     margin: auto;
+//     padding: 2px 15px;
+// }
+// .material-shadow {
+//     border-radius: 2px;
+//     box-shadow: 0 2px 5px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+// }
+// .id-button {
+//     background-color: $primaryColor;
+//     padding: 5px;
+//     margin-bottom: 5px;
+//     color: $tertiaryTxtColor;
+//     text-decoration: none;
+//     font-weight: bold;
+// }
+// .delete-button {
+//     background-color: #cc1111;
+// }
 
-button {
-    background-color: $primaryColor;
-    padding: 5px;
-    color: $tertiaryTxtColor;
-    font-weight: bold;
-    border: none;
-    border-radius: 2px;
-}
+// button {
+//     background-color: $primaryColor;
+//     padding: 5px;
+//     color: $tertiaryTxtColor;
+//     font-weight: bold;
+//     border: none;
+//     border-radius: 2px;
+// }
 
-label {
-    display: block;
-    font-weight: bold;
-}
+// label {
+//     display: block;
+//     font-weight: bold;
+// }
 
-input[type="text"] {
-    margin-bottom: 10px;
-}
+// input[type="text"] {
+//     margin-bottom: 10px;
+// }
 
-h1, h2, h3 {
-    text-align: center;
-}
+// h1, h2, h3 {
+//     text-align: center;
+// }
 
-ul {
-    padding: 0px;
-}
+// ul {
+//     padding: 0px;
+// }

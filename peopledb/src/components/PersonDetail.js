@@ -48,34 +48,36 @@ class PersonDetail extends Component {
         // console.log(this.state.person);
         // console.log(personToSend);
 
-        axios.patch(url, personToSend)
+        axios
+            .patch(url, personToSend)
             .then(response => {
                 // console.log(response.data);
-            }).catch(error => {
+            })
+            .catch(error => {
                 console.log(error.message); //=> String
-            }
-            );
+            });
     };
 
     deleteRESTPerson = () => {
         const url = this.props.baseRESTUrl + "/people/delete";
         const idObj = {
             id: this.state.person.id
-        }
+        };
 
-        axios.delete(url, { data: idObj })
+        axios
+            .delete(url, { data: idObj })
             .then(response => {
                 console.log(response.data);
                 window.location = "/";
             })
             .catch(error => console.log(error.message));
-    }
+    };
 
     componentDidMount() {
         this.getRESTPerson(this.props.match.params.id);
     }
 
-    handleInputChange = (event) => {
+    handleInputChange = event => {
         let f = this.state.person.firstName;
         let l = this.state.person.lastName;
         let e = this.state.person.email;
@@ -102,9 +104,9 @@ class PersonDetail extends Component {
                 email: e
             }
         });
-    }
+    };
 
-    updatePerson = (event) => {
+    updatePerson = event => {
         event.preventDefault();
         if (window.confirm("Are you sure you want to submit?")) {
             // console.log(this.state.person);
@@ -113,19 +115,24 @@ class PersonDetail extends Component {
             });
             this.updateRESTPerson();
         }
-    }
+    };
 
-    deletePerson = (event) => {
+    deletePerson = event => {
         event.preventDefault();
 
-        if (!window.confirm("Are you sure you want to delete " + this.state.person.firstName + "?"))
+        if (
+            !window.confirm(
+                "Are you sure you want to delete " +
+                    this.state.person.firstName +
+                    "?"
+            )
+        )
             return;
-        if (!window.confirm("Are you REALLY sure?"))
-            return;
+        if (!window.confirm("Are you REALLY sure?")) return;
 
         // console.log("Deleting " + this.state.person.firstName);
         this.deleteRESTPerson();
-    }
+    };
 
     render() {
         let updatedHtml;
@@ -135,7 +142,10 @@ class PersonDetail extends Component {
 
         return (
             <div>
-                <h2>ID: {this.state.person.id} ({this.state.person.firstName}'s) Info:</h2>
+                <h2>
+                    ID: {this.state.person.id} ({this.state.person.firstName}'s)
+                    Info:
+                </h2>
 
                 <h5>
                     Your updates won't get submitted until you hit "Submit"
@@ -144,42 +154,29 @@ class PersonDetail extends Component {
                 <hr />
                 <div>
                     <form onSubmit={this.updatePerson}>
-                        <label
-                            htmlFor='first'
-                        >
-                            First:{" "}
-                        </label>
+                        <label htmlFor="first">First: </label>
                         <input
-                            type='text'
-                            name='first'
+                            type="text"
+                            name="first"
                             onChange={this.handleInputChange}
                             defaultValue={this.state.person.firstName}
                         />{" "}
                         <br />
-                        <label
-                            htmlFor='last'
-                        >
-                            Last:{" "}
-                        </label>
+                        <label htmlFor="last">Last: </label>
                         <input
-                            type='text'
-                            name='last'
+                            type="text"
+                            name="last"
                             onChange={this.handleInputChange}
                             defaultValue={this.state.person.lastName}
                         />{" "}
                         <br />
-                        <label
-                            htmlFor='email'
-                        >
-                            Email:{" "}
-                        </label>
+                        <label htmlFor="email">Email: </label>
                         <input
-                            type='text'
-                            name='email'
+                            type="text"
+                            name="email"
                             onChange={this.handleInputChange}
                             defaultValue={this.state.person.email}
                         />{" "}
-
                         <br />
                         <button type="submit">Submit Changes</button>
                     </form>
@@ -187,12 +184,12 @@ class PersonDetail extends Component {
                 <hr style={{ margin: "10px 0px" }} />
                 <div>
                     <form onSubmit={this.deletePerson}>
-                        <button type="submit" className="delete-button">Delete User</button>
+                        <button type="submit" className="delete-button">
+                            Delete User
+                        </button>
                     </form>
                 </div>
-                <div style={{ clear: "both" }}>
-                    {updatedHtml}
-                </div>
+                <div style={{ clear: "both" }}>{updatedHtml}</div>
             </div>
         );
     }

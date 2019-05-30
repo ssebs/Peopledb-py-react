@@ -49,7 +49,7 @@ export class PersonCreate extends Component {
             .post(url, personToSend)
             .then(r => {
                 // console.log(r)
-                const newID = r.data['id']
+                const newID = r.data["id"];
                 window.location = "/detail/" + newID;
             })
             .catch(e => console.log(e));
@@ -64,56 +64,42 @@ export class PersonCreate extends Component {
                     creating a new person in the DB.
                 </p>
 
-                <blockquote>
-                    baseRESTUrl = {this.props.baseRESTUrl}
-                </blockquote>
+                <blockquote>baseRESTUrl = {this.props.baseRESTUrl}</blockquote>
 
                 <hr />
 
-                <form onSubmit={this.handleSubmit} autoComplete='new-password'>
-                    <label
-                        htmlFor='first'
-                    >
-                        First Name:
-                    </label>
+                <form onSubmit={this.handleSubmit} autoComplete="new-password">
+                    <label htmlFor="first">First Name:</label>
                     <input
-                        type='text'
-                        name='first'
+                        type="text"
+                        name="first"
                         onChange={this.handleChange}
-                        autoComplete='new-password'
+                        autoComplete="new-password"
                         required
                     />
                     <br />
 
-                    <label
-                        htmlFor='last'
-                    >
-                        Last Name:
-                    </label>
+                    <label htmlFor="last">Last Name:</label>
                     <input
-                        type='text'
-                        name='last'
+                        type="text"
+                        name="last"
                         onChange={this.handleChange}
-                        autoComplete='new-password'
+                        autoComplete="new-password"
                         required
                     />
                     <br />
 
-                    <label
-                        htmlFor='email'
-                    >
-                        Email:
-                    </label>
+                    <label htmlFor="email">Email:</label>
                     <input
-                        type='text'
-                        name='email'
+                        type="text"
+                        name="email"
                         onChange={this.handleChange}
                         required
                     />
 
                     <br />
 
-                    <button type='submit'>Submit</button>
+                    <button type="submit">Submit</button>
                 </form>
             </div>
         );
