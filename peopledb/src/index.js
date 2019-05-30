@@ -13,10 +13,32 @@ import { Container } from "react-bootstrap";
 import "./style.scss";
 
 const About = () => {
-    return <h2 className="text-center">About</h2>;
+    return (
+        <div>
+            <h2 className="text-center">About</h2>
+            <p>
+                Qui ad ipsum tempor sint excepteur proident nisi nisi enim
+                mollit enim irure. Reprehenderit elit ex anim aute pariatur.
+                Cupidatat elit dolor ea incididunt aliqua reprehenderit. Ipsum
+                Lorem anim incididunt qui incididunt excepteur laboris ad sit
+                amet. In eiusmod minim do amet sunt ut sunt irure anim ad ex.
+            </p>
+        </div>
+    );
 };
 const Contact = () => {
-    return <h2 className="text-center">Contact</h2>;
+    return (
+        <div>
+            <h2 className="text-center">Contact</h2>
+            <p>
+                Qui ad ipsum tempor sint excepteur proident nisi nisi enim
+                mollit enim irure. Reprehenderit elit ex anim aute pariatur.
+                Cupidatat elit dolor ea incididunt aliqua reprehenderit. Ipsum
+                Lorem anim incididunt qui incididunt excepteur laboris ad sit
+                amet. In eiusmod minim do amet sunt ut sunt irure anim ad ex.
+            </p>
+        </div>
+    );
 };
 const Home = props => {
     return (

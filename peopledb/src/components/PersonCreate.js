@@ -1,5 +1,12 @@
 import React, { Component } from "react";
 import axios from "axios";
+import {
+    Form,
+    FormGroup,
+    FormLabel,
+    FormControl,
+    Button
+} from "react-bootstrap";
 
 export class PersonCreate extends Component {
     constructor(props) {
@@ -57,50 +64,48 @@ export class PersonCreate extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{ maxWidth: "50%", margin: "auto" }}>
                 <h1>Create a new Person</h1>
                 <p>
                     Just fill out this form and you'll be on your way in
                     creating a new person in the DB.
                 </p>
-
-                <blockquote>baseRESTUrl = {this.props.baseRESTUrl}</blockquote>
-
                 <hr />
 
-                <form onSubmit={this.handleSubmit} autoComplete="new-password">
-                    <label htmlFor="first">First Name:</label>
-                    <input
-                        type="text"
-                        name="first"
-                        onChange={this.handleChange}
-                        autoComplete="new-password"
-                        required
-                    />
-                    <br />
+                <Form onSubmit={this.handleSubmit} autoComplete="new-password">
+                    <FormGroup>
+                        <FormLabel>First Name:</FormLabel>
+                        <FormControl
+                            type="text"
+                            name="first"
+                            onChange={this.handleChange}
+                            autoComplete="new-password"
+                            required
+                        />
+                    </FormGroup>
 
-                    <label htmlFor="last">Last Name:</label>
-                    <input
-                        type="text"
-                        name="last"
-                        onChange={this.handleChange}
-                        autoComplete="new-password"
-                        required
-                    />
-                    <br />
+                    <FormGroup>
+                        <FormLabel>Last Name:</FormLabel>
+                        <FormControl
+                            type="text"
+                            name="last"
+                            onChange={this.handleChange}
+                            autoComplete="new-password"
+                            required
+                        />
+                    </FormGroup>
 
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        type="text"
-                        name="email"
-                        onChange={this.handleChange}
-                        required
-                    />
-
-                    <br />
-
-                    <button type="submit">Submit</button>
-                </form>
+                    <FormGroup>
+                        <FormLabel>Email:</FormLabel>
+                        <FormControl
+                            type="text"
+                            name="email"
+                            onChange={this.handleChange}
+                            required
+                        />
+                    </FormGroup>
+                    <Button type="submit">Submit</Button>
+                </Form>
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import axios from "axios";
 
 import { Table, FormControl, Button, InputGroup } from "react-bootstrap";
@@ -110,7 +110,10 @@ class PersonSearch extends Component {
                     </InputGroup.Append>
                 </InputGroup>
                 <br />
-                <SearchResults ppl={this.state.searchResults} history={this.props.history} />
+                <SearchResults
+                    ppl={this.state.searchResults}
+                    history={this.props.history}
+                />
             </div>
         );
     }

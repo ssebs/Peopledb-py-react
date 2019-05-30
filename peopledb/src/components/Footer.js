@@ -1,8 +1,11 @@
-import React, { Component } from "react";
+import React from "react";
 
-class Footer extends Component {
-    render() {
-        return <div className="footer">Footer</div>;
-    }
-}
+const Footer = () => {
+    return (
+        <footer className="text-center text-primary bg-light p-5 mt-5">
+            &copy; 2019 Sebastian Safari
+        </footer>
+    );
+};
+
 export default Footer;
