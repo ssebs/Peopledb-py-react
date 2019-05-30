@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
 
+import {
+    Form,
+    FormLabel,
+    FormControl,
+    Button,
+    FormGroup,
+    Alert
+} from "react-bootstrap";
+
 class PersonDetail extends Component {
     constructor(props) {
         super(props);
@@ -135,13 +144,8 @@ class PersonDetail extends Component {
     };
 
     render() {
-        let updatedHtml;
-        if (this.state.showUpdated) {
-            updatedHtml = <p>Updated!</p>;
-        }
-
         return (
-            <div>
+            <div style={{ maxWidth: "50%", margin: "auto" }}>
                 <h2>
                     ID: {this.state.person.id} ({this.state.person.firstName}'s)
                     Info:
@@ -151,45 +155,55 @@ class PersonDetail extends Component {
                     Your updates won't get submitted until you hit "Submit"
                     below.
                 </h5>
+                {this.state.showUpdated ? (
+                    <Alert variant="success">Updated!</Alert>
+                ) : (
+                    <div />
+                )}
                 <hr />
-                <div>
-                    <form onSubmit={this.updatePerson}>
-                        <label htmlFor="first">First: </label>
-                        <input
+
+                <Form onSubmit={this.updatePerson}>
+                    <FormGroup>
+                        <FormLabel>First: </FormLabel>
+                        <FormControl
                             type="text"
                             name="first"
                             onChange={this.handleInputChange}
                             defaultValue={this.state.person.firstName}
-                        />{" "}
-                        <br />
-                        <label htmlFor="last">Last: </label>
-                        <input
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel>Last: </FormLabel>
+                        <FormControl
                             type="text"
                             name="last"
                             onChange={this.handleInputChange}
                             defaultValue={this.state.person.lastName}
-                        />{" "}
-                        <br />
-                        <label htmlFor="email">Email: </label>
-                        <input
+                        />
+                    </FormGroup>
+                    <FormGroup>
+                        <FormLabel>Email: </FormLabel>
+                        <FormControl
                             type="text"
                             name="email"
                             onChange={this.handleInputChange}
                             defaultValue={this.state.person.email}
-                        />{" "}
-                        <br />
-                        <button type="submit">Submit Changes</button>
-                    </form>
-                </div>
+                        />
+                    </FormGroup>
+                    <Button type="submit">Submit Changes</Button>
+                </Form>
                 <hr style={{ margin: "10px 0px" }} />
                 <div>
-                    <form onSubmit={this.deletePerson}>
-                        <button type="submit" className="delete-button">
+                    <Form onSubmit={this.deletePerson}>
+                        <Button
+                            variant="outline-danger"
+                            type="submit"
+                            className="delete-button"
+                        >
                             Delete User
-                        </button>
-                    </form>
+                        </Button>
+                    </Form>
                 </div>
-                <div style={{ clear: "both" }}>{updatedHtml}</div>
             </div>
         );
     }
