@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import axios from "axios";
 
 import {
+    Container,
     Form,
     FormLabel,
     FormControl,
@@ -27,13 +28,13 @@ class PersonDetail extends Component {
         axios
             .get(url)
             .then(resp => {
-                const { first, last, email } = resp.data;
+                const { first_name, last_name, email } = resp.data;
 
                 this.setState({
                     person: {
                         id,
-                        firstName: first,
-                        lastName: last,
+                        firstName: first_name,
+                        lastName: last_name,
                         email
                     }
                 });
@@ -45,13 +46,13 @@ class PersonDetail extends Component {
 
     updateRESTPerson = () => {
         // PATCH a person
-        const url = this.props.baseRESTUrl + "/people/update";
+        const url = this.props.baseRESTUrl + `/people/${this.state.person.id}`;
 
         const { id, firstName, lastName, email } = this.state.person;
         const personToSend = {
             id: +id,
-            first: firstName,
-            last: lastName,
+            first_name: firstName,
+            last_name: lastName,
             email: email
         };
         // console.log(this.state.person);
@@ -68,7 +69,7 @@ class PersonDetail extends Component {
     };
 
     deleteRESTPerson = () => {
-        const url = this.props.baseRESTUrl + "/people/delete";
+        const url = this.props.baseRESTUrl + `/people/${this.state.person.id}`;
         const idObj = {
             id: this.state.person.id
         };
@@ -92,10 +93,10 @@ class PersonDetail extends Component {
         let e = this.state.person.email;
 
         switch (event.target.name) {
-            case "first":
+            case "first_name":
                 f = event.target.value;
                 break;
-            case "last":
+            case "last_name":
                 l = event.target.value;
                 break;
             case "email":
@@ -117,13 +118,12 @@ class PersonDetail extends Component {
 
     updatePerson = event => {
         event.preventDefault();
-        if (window.confirm("Are you sure you want to submit?")) {
-            // console.log(this.state.person);
-            this.setState({
-                showUpdated: true
-            });
-            this.updateRESTPerson();
-        }
+
+        // console.log(this.state.person);
+        this.setState({
+            showUpdated: true
+        });
+        this.updateRESTPerson();
     };
 
     deletePerson = event => {
@@ -137,7 +137,6 @@ class PersonDetail extends Component {
             )
         )
             return;
-        if (!window.confirm("Are you REALLY sure?")) return;
 
         // console.log("Deleting " + this.state.person.firstName);
         this.deleteRESTPerson();
@@ -145,66 +144,84 @@ class PersonDetail extends Component {
 
     render() {
         return (
-            <div style={{ maxWidth: "50%", margin: "auto" }}>
-                <h2>
-                    ID: {this.state.person.id} ({this.state.person.firstName}'s)
-                    Info:
-                </h2>
-
-                <h5>
+            <Container
+                style={{
+                    textAlign: "center"
+                }}
+            >
+                <div>
+                    <h2
+                        style={{
+                            display: "inline-block",
+                            marginRight: "2rem"
+                        }}
+                    >
+                        {this.state.person.firstName}
+                    </h2>
+                    <span>ID: {this.state.person.id}</span>
+                </div>
+                <p>
                     Your updates won't get submitted until you hit "Submit"
                     below.
-                </h5>
+                </p>
                 {this.state.showUpdated ? (
                     <Alert variant="success">Updated!</Alert>
                 ) : (
                     <div />
                 )}
                 <hr />
-
-                <Form onSubmit={this.updatePerson}>
-                    <FormGroup>
-                        <FormLabel>First: </FormLabel>
-                        <FormControl
-                            type="text"
-                            name="first"
-                            onChange={this.handleInputChange}
-                            defaultValue={this.state.person.firstName}
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <FormLabel>Last: </FormLabel>
-                        <FormControl
-                            type="text"
-                            name="last"
-                            onChange={this.handleInputChange}
-                            defaultValue={this.state.person.lastName}
-                        />
-                    </FormGroup>
-                    <FormGroup>
-                        <FormLabel>Email: </FormLabel>
-                        <FormControl
-                            type="text"
-                            name="email"
-                            onChange={this.handleInputChange}
-                            defaultValue={this.state.person.email}
-                        />
-                    </FormGroup>
-                    <Button type="submit">Submit Changes</Button>
-                </Form>
-                <hr style={{ margin: "10px 0px" }} />
-                <div>
-                    <Form onSubmit={this.deletePerson}>
-                        <Button
-                            variant="outline-danger"
-                            type="submit"
-                            className="delete-button"
-                        >
-                            Delete User
-                        </Button>
+                <div
+                    style={{
+                        maxWidth: "50%",
+                        margin: "auto",
+                        textAlign: "left"
+                    }}
+                >
+                    <Form onSubmit={this.updatePerson}>
+                        <FormGroup>
+                            <FormLabel>First: </FormLabel>
+                            <FormControl
+                                type="text"
+                                name="first_name"
+                                onChange={this.handleInputChange}
+                                defaultValue={this.state.person.firstName}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <FormLabel>Last: </FormLabel>
+                            <FormControl
+                                type="text"
+                                name="last_name"
+                                onChange={this.handleInputChange}
+                                defaultValue={this.state.person.lastName}
+                            />
+                        </FormGroup>
+                        <FormGroup>
+                            <FormLabel>Email: </FormLabel>
+                            <FormControl
+                                type="text"
+                                name="email"
+                                onChange={this.handleInputChange}
+                                defaultValue={this.state.person.email}
+                            />
+                        </FormGroup>
+                        <Button type="submit">Submit Changes</Button>
                     </Form>
+                    <hr style={{ margin: "10px 0px" }} />
+                    <div>
+                        <Form onSubmit={this.deletePerson}>
+                            <Button
+                                variant="outline-danger"
+                                size="sm"
+                                type="submit"
+                                className="delete-button"
+                            >
+                                Delete User
+                            </Button>
+                        </Form>
+                    </div>
                 </div>
-            </div>
+            </Container>
         );
     }
 }

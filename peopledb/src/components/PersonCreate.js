@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import axios from "axios";
 import {
+    Container,
     Form,
     FormGroup,
     FormLabel,
@@ -14,8 +15,8 @@ export class PersonCreate extends Component {
         // this.props.baseRESTUrl should be the REST url to access
 
         this.state = {
-            first: "",
-            last: "",
+            first_name: "",
+            last_name: "",
             email: ""
         };
         // console.log(this.props);
@@ -42,21 +43,22 @@ export class PersonCreate extends Component {
     };
 
     createPerson = () => {
-        const url = this.props.baseRESTUrl + "/people/create";
+        const url = this.props.baseRESTUrl + "/people/";
 
-        const { first, last, email } = this.state;
+        const { first_name, last_name, email } = this.state;
 
         const personToSend = {
-            first,
-            last,
+            first_name,
+            last_name,
             email
         };
 
         axios
             .post(url, personToSend)
             .then(r => {
-                // console.log(r)
-                const newID = r.data["id"];
+                console.log(r);
+                const newID = r.data["Data"].id;
+                console.log(newID);
                 window.location = "/detail/" + newID;
             })
             .catch(e => console.log(e));
@@ -64,49 +66,63 @@ export class PersonCreate extends Component {
 
     render() {
         return (
-            <div style={{ maxWidth: "50%", margin: "auto" }}>
+            <Container
+                style={{
+                    textAlign: "center"
+                }}
+            >
                 <h1>Create a new Person</h1>
                 <p>
                     Just fill out this form and you'll be on your way in
                     creating a new person in the DB.
                 </p>
                 <hr />
+                <div
+                    style={{
+                        maxWidth: "50%",
+                        margin: "auto",
+                        textAlign: "left"
+                    }}
+                >
+                    <Form
+                        onSubmit={this.handleSubmit}
+                        autoComplete="new-password"
+                    >
+                        <FormGroup>
+                            <FormLabel>First Name:</FormLabel>
+                            <FormControl
+                                type="text"
+                                name="first_name"
+                                onChange={this.handleChange}
+                                autoComplete="new-password"
+                                required
+                            />
+                        </FormGroup>
 
-                <Form onSubmit={this.handleSubmit} autoComplete="new-password">
-                    <FormGroup>
-                        <FormLabel>First Name:</FormLabel>
-                        <FormControl
-                            type="text"
-                            name="first"
-                            onChange={this.handleChange}
-                            autoComplete="new-password"
-                            required
-                        />
-                    </FormGroup>
+                        <FormGroup>
+                            <FormLabel>Last Name:</FormLabel>
+                            <FormControl
+                                type="text"
+                                name="last_name"
+                                onChange={this.handleChange}
+                                autoComplete="new-password"
+                                required
+                            />
+                        </FormGroup>
 
-                    <FormGroup>
-                        <FormLabel>Last Name:</FormLabel>
-                        <FormControl
-                            type="text"
-                            name="last"
-                            onChange={this.handleChange}
-                            autoComplete="new-password"
-                            required
-                        />
-                    </FormGroup>
-
-                    <FormGroup>
-                        <FormLabel>Email:</FormLabel>
-                        <FormControl
-                            type="text"
-                            name="email"
-                            onChange={this.handleChange}
-                            required
-                        />
-                    </FormGroup>
-                    <Button type="submit">Submit</Button>
-                </Form>
-            </div>
+                        <FormGroup>
+                            <FormLabel>Email:</FormLabel>
+                            <FormControl
+                                type="text"
+                                name="email"
+                                onChange={this.handleChange}
+                                required
+                            />
+                        </FormGroup>
+                        <Button type="submit">Submit</Button>
+                    </Form>
+                </div>
+            </Container>
         );
     }
 }

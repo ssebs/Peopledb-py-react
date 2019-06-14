@@ -18,8 +18,8 @@ export function SearchResults(props) {
                 onClick={() => props.history.push(`/detail/${person.id}`)}
             >
                 <td>{person.id}</td>
-                <td>{person.first}</td>
-                <td>{person.last}</td>
+                <td>{person.first_name}</td>
+                <td>{person.last_name}</td>
                 <td>{person.email}</td>
             </tr>
         );
@@ -65,6 +65,10 @@ class PersonSearch extends Component {
             })
             .catch(e => console.log(e));
     };
+
+    componentDidMount() {
+        this.getRESTPeople();
+    }
 
     handleChange = e => {
         let qry = e.target.value;

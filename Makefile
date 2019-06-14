@@ -1,7 +1,7 @@
 all:
 	@echo "please enter a subcommand"
 api:
-	@cd flask-ppl-api/ && python3 main.py
+	@cd flask-ppl-api/ && python3 run.py
 react: run
 	@
 frontend: run

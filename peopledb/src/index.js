@@ -42,8 +42,8 @@ const Contact = () => {
 };
 const Home = props => {
     return (
-        <Container className="text-center">
-            <h2>Home</h2>
+        <Container>
+            <h2 className="text-center">Home</h2>
             <p>
                 This is a page where you can search for existing users, and
                 modify them if they exist. If you hit the "Submit" button with
@@ -54,6 +54,7 @@ const Home = props => {
                 Click on a result to go to their page, and click on "Create a
                 new Person" at the top to create someone new.
             </p>
+            <hr/>
             <PersonSearch baseRESTUrl={props.baseRESTUrl} />
         </Container>
     );
@@ -65,8 +66,8 @@ class App extends Component {
 
         this.state = {
             title: "PeopleDB",
-            //baseRESTUrl: "http://localhost:5000"
-            baseRESTUrl: "http://api.ssebs.com"
+            baseRESTUrl: "http://localhost:5006"
+            // baseRESTUrl: "http://api.ssebs.com"
         };
     }
 
